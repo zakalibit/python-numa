@@ -165,7 +165,7 @@ def sched_getaffinity(pid):
     bitmask = LIBNUMA.numa_allocate_cpumask()
     LIBNUMA.numa_sched_getaffinity(pid, bitmask)
 
-    cpus = [c for c in range(0, num_configured_cpus()+1) if LIBNUMA.numa_bitmask_isbitset(bitmask, c)]
+    cpus = [c for c in range(0, num_configured_cpus()) if LIBNUMA.numa_bitmask_isbitset(bitmask, c)]
     LIBNUMA.numa_bitmask_free(bitmask)
     return cpus
     
