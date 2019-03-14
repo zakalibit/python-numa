@@ -1,5 +1,3 @@
-import os
-import errno
 from ctypes import CDLL, byref
 from ctypes.util import find_library
 
