@@ -24,7 +24,7 @@ def available():
     '''
         checks if numa(3) is avalable.
     '''
-    return LIBNUMA.numa_available()
+    return LIBNUMA.numa_available() != -1
 
 
 def max_possible_node():
