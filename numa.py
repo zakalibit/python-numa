@@ -1,10 +1,14 @@
-from ctypes import CDLL, byref
+from ctypes import CDLL, byref, c_longlong
 from ctypes.util import find_library
 
 
 __all__ = ['available', 'bind', 'distance', 'isolated_cpus', 'max_node', 'max_possible_node', 'node_free_size', 'node_of_cpu', 'node_size', 'node_to_cpus', 'num_configured_cpus', 'num_configured_nodes', 'num_possible_nodes', 'num_task_cpus', 'num_task_nodes', 'os', 'preferred', 'run_on_node', 'sched_cpus_setaffinity', 'sched_getaffinity', 'sched_nodes_setaffinity', 'set_localalloc', 'set_membind', 'set_preferred']
 
 LIBNUMA = CDLL(find_library("numa"))
+
+
+LIBNUMA.numa_node_size64.restype = c_longlong
+
 
 def _strrng2list(rng):
     '''
@@ -95,7 +99,7 @@ def set_preferred(node):
 
 def bind(nodes):
     '''
-        binds the current task and its children to the nodes specified in nodemask.
+        binds the current task and its children to the nodes specified in node.
     '''
     bitmask = LIBNUMA.numa_parse_nodestring(nodes)
     if not bitmask:
